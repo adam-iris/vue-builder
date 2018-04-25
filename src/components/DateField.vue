@@ -1,8 +1,3 @@
-<template>
-  <div>
-    DateField for {{ name }}
-  </div>
-</template>
 
 <script>
 

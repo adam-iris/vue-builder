@@ -1,6 +1,7 @@
 <template>
   <div>
-    Field for {{ name }}
+    <label>{{ label }}</label>
+    <input type="text" :name="name" :model="value" />
     <div v-if="helpTextStr">{{ helpTextStr }}</div>
   </div>
 </template>
@@ -18,6 +19,13 @@ export default {
     definition: function() {
       if (this.fields) {
         return this.fields[this.name];
+      }
+    },
+    label: function() {
+      if (this.definition && this.definition.label) {
+        return label;
+      } else {
+        return this.name.substr(0,1).toUpperCase() + this.name.substr(1);
       }
     },
     helpTextStr: function() {
