@@ -25,6 +25,7 @@ import Vue from 'vue';
 import qs from 'qs';
 import TextField from './TextField';
 import DateField from './DateField';
+import loadOpenAPIDefinition from '../openapi';
 
 function qsFilter(prefix, value) {
   if (value === '') {
@@ -58,10 +59,23 @@ export default {
   },
   mounted() {
     console.log(this.$children);
+    const openAPIOptions = {
+      url: '/static/example/openapi-event.json',
+    };
+    loadOpenAPIDefinition(openAPIOptions).then((definition) => {
+      if (!definition) {
+        throw new Error("No definition returned!");
+      }
+      this.definition = Object.assign({}, definition);
       this.$children.forEach((f) => {
-      console.log(f.name);
-      Vue.set(f, 'fields', this.fields);
-      Vue.set(f, 'query', this.query);
+        Vue.set(f.context, 'fields', this.fields);
+        Vue.set(f.context, 'query', this.query);
+        f.$on('updateQuery', (q) => {
+          this.query = Object.assign({}, this.query, q);
+        });
+      });
+    }).catch((error) => {
+      console.error(error);
     });
   },
 };
