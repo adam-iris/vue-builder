@@ -14,13 +14,24 @@
         <DateField name="end" />
       </fieldset>
     </form>
+    <div>
+      URL: {{ queryURL }}
+    </div>
   </div>
 </template>
 
 <script>
+import Vue from 'vue';
+import qs from 'qs';
 import TextField from './TextField';
 import DateField from './DateField';
-import Vue from 'vue';
+
+function qsFilter(prefix, value) {
+  if (value === '') {
+    return undefined;
+  }
+  return value;
+}
 
 export default {
   name: 'ExampleForm',
@@ -30,18 +41,24 @@ export default {
   },
   data() {
     return {
+      definition: {},
       fields: {
         loc: {
-          helpText: 'Location code (ex: 00)',
+          helpText: "Location code (ex: 00)",
         },
       },
       query: {
       },
     };
   },
+  computed: {
+    queryURL() {
+      return qs.stringify(this.query, { encode: false, skipNulls: true, filter: qsFilter });
+    },
+  },
   mounted() {
     console.log(this.$children);
-    this.$children.forEach((f) => {
+      this.$children.forEach((f) => {
       console.log(f.name);
       Vue.set(f, 'fields', this.fields);
       Vue.set(f, 'query', this.query);

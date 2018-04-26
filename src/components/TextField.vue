@@ -1,7 +1,7 @@
 <template>
   <div>
     <label>{{ label }}</label>
-    <input type="text" :name="name" :model="value" />
+    <input type="text" :name="name" v-model="value" />
     <div v-if="helpTextStr">{{ helpTextStr }}</div>
   </div>
 </template>
@@ -9,33 +9,51 @@
 <script>
 export default {
   name: 'TextField',
-  props: ['name', 'fields', 'query', 'helpText'],
+  props: ['name', 'helpText'],
+  data() {
+    return {
+      context: {},
+    };
+  },
   computed: {
-    value: function() {
-      if (this.query) {
-        return this.query[this.name];
-      }
+    value: {
+      get() {
+        if (this.context.query) {
+          return this.context.query[this.name];
+        } else {
+          return null;
+        }
+      },
+      set(newValue) {
+        const query = {};
+        query[this.name] = newValue;
+        this.$emit('updateQuery', query);
+      },
     },
-    definition: function() {
-      if (this.fields) {
-        return this.fields[this.name];
-      }
-    },
-    label: function() {
-      if (this.definition && this.definition.label) {
-        return label;
+    definition() {
+      if (this.context.fields) {
+        return this.context.fields[this.name];
       } else {
-        return this.name.substr(0,1).toUpperCase() + this.name.substr(1);
+        return null;
       }
     },
-    helpTextStr: function() {
+    label() {
+      if (this.definition && this.definition.label) {
+        return this.definition.label;
+      } else {
+        return this.name.substr(0, 1).toUpperCase() + this.name.substr(1);
+      }
+    },
+    helpTextStr() {
       if (this.helpText) {
         return this.helpText;
       } else if (this.definition && this.definition.helpText) {
         return this.definition.helpText;
+      } else {
+        return null;
       }
     },
-  }
+  },
 };
 </script>
 
