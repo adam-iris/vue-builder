@@ -74,5 +74,7 @@ module.exports = {
 
     // Allow empty blocks {}
     'no-empty': 0,
+
+    'require-v-for-key': 0,
   }
 }

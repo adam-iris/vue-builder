@@ -5,7 +5,7 @@ import TextField from './TextField';
 
 export default {
   name: 'DateField',
-  mixins: [TextField],
+  extends: [TextField],
 };
 </script>
 
