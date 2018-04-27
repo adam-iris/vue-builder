@@ -46,30 +46,33 @@ module.exports = {
     }],
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    
+
     /* Adam's config */
-    
+
     // Don't flag bracing of arrow function body
     // https://eslint.org/docs/rules/arrow-body-style
     'arrow-body-style': 0,
 
     // Allow calls to the console
     'no-console': 0,
-    
+
     // Allow private properties
     'no-underscore-dangle': 0,
-    
+
     // Allow helper functions to be defined below the main function
     'no-use-before-define': 0,
-    
+
     // Allow if () { return; } else { }
     'no-else-return': 0,
-    
+
     // Rule of thumb is: double-quotes for user-facing text, single-quotes for identifiers
     'quotes': 0,
 
     // allow python-style _ignored variables
 		'no-unused-vars': [2, { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
 		'no-underscore-dangle': 0,
+
+    // Allow empty blocks {}
+    'no-empty': 0,
   }
 }

@@ -31,11 +31,12 @@ export default {
       },
     },
     definition() {
-      if (this.context.fields) {
-        return this.context.fields[this.name];
-      } else {
-        return null;
+      if (this.context.definition) {
+        try {
+          return this.context.definition.operation.params[this.name];
+        } catch (e) {}
       }
+      return null;
     },
     label() {
       if (this.definition && this.definition.label) {
@@ -47,8 +48,8 @@ export default {
     helpTextStr() {
       if (this.helpText) {
         return this.helpText;
-      } else if (this.definition && this.definition.helpText) {
-        return this.definition.helpText;
+      } else if (this.definition && this.definition.description) {
+        return this.definition.description;
       } else {
         return null;
       }

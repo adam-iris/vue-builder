@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <ExampleForm/>
+    <FDSNEvent/>
   </div>
 </template>
 
 <script>
-import ExampleForm from './components/ExampleForm';
+import FDSNEvent from './components/FDSNEvent';
 
 export default {
   name: 'App',
   components: {
-    ExampleForm,
+    FDSNEvent,
   },
 };
 </script>
