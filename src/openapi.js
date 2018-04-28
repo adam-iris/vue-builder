@@ -3,67 +3,90 @@ const DEFAULT_OPTIONS = {
   path: '/query',
 };
 
-function loadOpenAPIDefinition(options) {
-  /* Convert OpenAPI data to a flatter format
-   * definition.service = "service" level information combining
-   *  the OpenAPI JSON with some local settings
-   * definition.operation = the OpenAPI JSON for this builder's
-   *  Operation (each builder handles just one Operation, but
-   *  the OpenAPI JSON may define many).
-   */
-
-  const fullOptions = Object.assign({}, options, DEFAULT_OPTIONS);
-
-  function parseOpenAPIOperation(operationData) {
-    const operation = {
-      summary: operationData.summary,
-      description: operationData.description,
-      // List of parameter names, this is mostly to preserve the ordering
-      parameterNames: [],
-      // Information about each parameter
-      params: {},
-    };
-    operationData.parameters.forEach((param) => {
-      // Only handle the query parameters
-      if (param.in === 'query') {
-        operation.parameterNames.push(param.name);
-        operation.params[param.name] = param;
-      }
-    });
+/**
+ * Encapsulates an OpenAPI definition, mainly in order to extract a flat
+ * definition for use by the builder.
+ */
+class OpenAPIDefinition {
+  constructor(definition) {
+    this.definition = definition;
+  }
+  getOperation(path, method) {
+    const pathData = this.definition.paths[path];
+    if (!pathData) {
+      throw new Error(`Invalid service path given: ${path}`);
+    }
+    const operation = pathData[method];
+    if (!operation) {
+      throw new Error(`Method ${method} is not defined for ${path}`);
+    }
     return operation;
   }
+  generateBuilderModel(options) {
+    const fullOptions = Object.assign({}, options, DEFAULT_OPTIONS);
+    const operation = this.getOperation(fullOptions.path, fullOptions.method);
 
-  function parseOpenAPIData(data) {
-    const definition = {
-      service: {
-        title: data.info.title,
-        description: data.info.description,
-        host: data.host,
-        basePath: data.basePath,
-        path: fullOptions.path,
-      },
+    // For many of these, we have to choose between service-level and operation-level
+    const model = {
+      host: this.definition.host,
+      basePath: this.definition.basePath,
+      path: this.definition.path,
+      // These could come from either, so we get both and choose below
+      svcTitle: this.definition.title,
+      opTitle: operation.summary,
+      svcDescription: this.definition.description,
+      opDescription: operation.description,
     };
-    // Extract the operation-level definition and parse that separately
-    const pathData = data.paths[fullOptions.path];
-    if (!pathData) {
-      throw new Error(`Invalid service path given: ${fullOptions.path}`);
-    }
-    const operation = pathData[fullOptions.method];
-    if (!operation) {
-      throw new Error(`Method ${fullOptions.method} is not defined for ${fullOptions.path}`);
-    }
-    definition.operation = parseOpenAPIOperation(operation);
-    return definition;
-  }
+    model.title = model.svcTitle;
+    model.description = model.svcDescription;
 
-  // Load the OpenAPI definition
-  return fetch(fullOptions.url).then((response) => {
+    // Query parameters
+    model.parameterNames = [];
+    model.params = {};
+    operation.parameters.forEach((param) => {
+      // Only handle the query parameters
+      if (param.in === 'query') {
+        model.parameterNames.push(param.name);
+        model.params[param.name] = param;
+      }
+    });
+    return model;
+  }
+}
+
+/**
+ * Fetch an OpenAPI definition from the given URL.
+ *
+ * @param url
+ * @returns Promise of a JSON definition
+ */
+function fetchOpenAPIDefinition(url) {
+  return fetch(url).then((response) => {
     if (response.ok) {
-      return response.json().then(parseOpenAPIData);
+      return response.json();
     } else {
       throw new Error(`Error: ${response.statusText}`);
     }
   });
 }
 
-export default loadOpenAPIDefinition;
+/**
+ * Simple public API
+ *
+ * @param options - Object of options.
+ *      options.url - URL to retrieve the definition from
+ *      options.path - Path in the definition to use (default '/query')
+ *      options.method - Method in the definition to use (default 'get')
+ * @returns Flat definition for a single path/method
+ */
+function loadOpenAPIDefinition(options) {
+  return fetchOpenAPIDefinition(options.url).then((definition) => {
+    return new OpenAPIDefinition(definition).generateBuilderModel(options);
+  });
+}
+
+export default {
+  OpenAPIDefinition,
+  fetchOpenAPIDefinition,
+  loadOpenAPIDefinition,
+};

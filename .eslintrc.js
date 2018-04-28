@@ -69,7 +69,7 @@ module.exports = {
     'quotes': 0,
 
     // allow python-style _ignored variables
-		'no-unused-vars': [2, { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
+		'no-unused-vars': [1, { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
 		'no-underscore-dangle': 0,
 
     // Allow empty blocks {}

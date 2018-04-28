@@ -14,7 +14,6 @@
       </fieldset>
     </form>
     <div>
-      URL: {{ queryURL }}
     </div>
   </div>
 </template>

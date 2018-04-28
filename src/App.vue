@@ -6,6 +6,7 @@
 
 <script>
 import FDSNEvent from './components/FDSNEvent';
+// import ExampleForm from './components/ExampleForm';
 
 export default {
   name: 'App',

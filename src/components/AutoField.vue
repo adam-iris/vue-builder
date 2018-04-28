@@ -1,20 +1,21 @@
-<template>
-  <div>
-    <label>{{ label }}</label>
-    <input type="text" :name="name" v-model="value" />
-    <div v-if="helpTextStr">{{ helpTextStr }}</div>
-  </div>
-</template>
-
 <script>
 
-function toTitleCase(s) {
-  return s.substr(0, 1).toUpperCase() + s.substr(1);
+function getFieldDefinition(definition, name) {
+  try {
+    return definition.operation.params[name];
+  } catch(e) {
+    return null;
+  }
 }
 
 export default {
-  name: 'BaseField',
+  name: 'AutoField',
+  functional:true,
   props: ['name', 'helpText'],
+  render(h, context) {
+    const fieldDefinition = getFieldDefinition(context.data.context.definition);
+
+  }
   data() {
     return {
       context: {},
@@ -36,7 +37,7 @@ export default {
     definition() {
       if (this.context.definition) {
         try {
-          return this.context.definition.params[this.name];
+          return this.context.definition.operation.params[this.name];
         } catch (e) {}
       }
       return null;

@@ -1,31 +1,10 @@
-<template>
-  <div class="form">
-    <form>
-      <div v-for="field in fields" :key="field.name">
-        <TextField name={{ field.name }} />
-      </div>
-    </form>
-    <div>
-      URL: {{ queryURL }}
-    </div>
-  </div>
-</template>
-
 <script>
 import Vue from 'vue';
 import qs from 'qs';
 import TextField from './TextField';
-import OpenAPI from '../openapi';
-
-function qsFilter(prefix, value) {
-  if (value === '') {
-    return undefined;
-  }
-  return value;
-}
 
 export default {
-  name: 'BaseBuilder',
+  name: 'BaseBuilderForm',
   components: {
     TextField,
   },
@@ -38,7 +17,7 @@ export default {
   computed: {
     fields() {
       if (this.definition) {
-        return this.definition.parameterNames;
+        return this.definition.operation.parameterNames;
       } else {
         return [];
       }
@@ -52,7 +31,7 @@ export default {
     const openAPIOptions = {
       url: '/static/example/openapi-event.json',
     };
-    OpenAPI.loadOpenAPIDefinition(openAPIOptions).then((definition) => {
+    loadOpenAPIDefinition(openAPIOptions).then((definition) => {
       if (!definition) {
         throw new Error("No definition returned!");
       }
