@@ -1,12 +1,13 @@
 <template>
-  <div>
-    <label>{{ label }}</label>
-    <input type="text" :name="name" v-model="value" />
-    <div v-if="helpTextStr">{{ helpTextStr }}</div>
-  </div>
+  <FieldRow :context="rowContext">
+    <div slot="input">
+      <input type="text" :name="name" v-model="value" />
+    </div>
+  </FieldRow>
 </template>
 
 <script>
+import FieldRow from './FieldRow';
 
 function toTitleCase(s) {
   return s.substr(0, 1).toUpperCase() + s.substr(1);
@@ -15,6 +16,7 @@ function toTitleCase(s) {
 export default {
   name: 'BaseField',
   props: ['name', 'helpText'],
+  components: { FieldRow },
   data() {
     return {
       context: {},
@@ -56,6 +58,12 @@ export default {
       } else {
         return null;
       }
+    },
+    rowContext() {
+      return {
+        name: this.name,
+        helpText: this.helpTextStr,
+      };
     },
   },
   methods: {

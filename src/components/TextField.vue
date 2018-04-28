@@ -3,7 +3,9 @@ import BaseField from './BaseField';
 
 export default {
   name: 'TextField',
-  extends: [BaseField],
+  mixin: [BaseField],
+  template: BaseField.template,
+  data() { return {}; },
 };
 </script>
 

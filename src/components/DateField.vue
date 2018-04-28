@@ -1,3 +1,6 @@
+<template>
+  <div>DateField</div>
+</template>
 
 <script>
 

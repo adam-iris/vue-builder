@@ -1,32 +1,32 @@
 <template>
-  <div class="form">
-    <form>
-      <fieldset>
-        <legend>Dates</legend>
-        <DateField name="starttime" />
-        <DateField name="endtime" />
-      </fieldset>
-      <fieldset>
-        <legend>Event</legend>
-        <TextField name="minmag" />
-        <TextField name="maxmag" />
-        <TextField name="magtype" />
-      </fieldset>
-    </form>
-    <div>
+  <Builder url="/static/example/openapi-event.json">
+    <div slot="form">
+      <form>
+        <fieldset>
+          <legend>Dates</legend>
+          <DateField name="starttime" />
+          <DateField name="endtime" />
+        </fieldset>
+        <fieldset>
+          <legend>Event</legend>
+          <TextField name="minmag" />
+          <TextField name="maxmag" />
+          <TextField name="magtype" />
+        </fieldset>
+      </form>
     </div>
-  </div>
+  </Builder>
 </template>
 
 <script>
-import BaseBuilder from './BaseBuilder';
+import Builder from './Builder';
 import TextField from './TextField';
 import DateField from './DateField';
 
 export default {
   name: 'FDSNEvent',
-  extends: [BaseBuilder],
   components: {
+    Builder,
     TextField,
     DateField,
   },
