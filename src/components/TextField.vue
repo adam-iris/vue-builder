@@ -3,9 +3,12 @@ import BaseField from './BaseField';
 
 export default {
   name: 'TextField',
-  mixin: [BaseField],
-  template: BaseField.template,
+  extends: [BaseField],
   data() { return {}; },
+  template: BaseField.template,
+  render2(h, context) {
+    return BaseField.render.apply(this, h, context);
+  },
 };
 </script>
 
