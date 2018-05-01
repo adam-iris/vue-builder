@@ -1,8 +1,6 @@
 <template>
   <FieldRow :context="rowContext">
-    <div slot="input">
-      <input type="text" :name="name" v-model="value" />
-    </div>
+    <input type="text" :name="name" v-model="value" />
   </FieldRow>
 </template>
 
@@ -61,7 +59,7 @@ export default {
     },
     rowContext() {
       return {
-        name: this.name,
+        label: this.label,
         helpText: this.helpTextStr,
       };
     },

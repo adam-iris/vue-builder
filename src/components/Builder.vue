@@ -4,7 +4,7 @@
       <slot name="form">
         <form>
           <div v-for="field in fields" :key="field.name">
-            <TextField name={{ field.name }} />
+            <TextField :name="field.name" />
           </div>
         </form>
       </slot>

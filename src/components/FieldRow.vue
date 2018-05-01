@@ -1,12 +1,14 @@
 <template>
   <div>
-    <label>{{ context.label }}</label>
-    <div>
-      <slot name="input">
-        (Input goes here)
-      </slot>
-    </div>
-    <div v-if="context.helpText">{{ context.helpText }}</div>
+    <slot name="label">
+      <label>{{ context.label }}</label>
+    </slot>
+    <slot>
+      (Input goes here)
+    </slot>
+    <slot name="extra">
+      <div v-if="context.helpText">{{ context.helpText }}</div>
+    </slot>
   </div>
 </template>
 

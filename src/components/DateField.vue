@@ -1,14 +1,17 @@
 <template>
-  <div>DateField</div>
+  <FieldRow :context="rowContext">
+    <input type="text" :name="name" v-model="value" />
+  </FieldRow>
 </template>
 
 <script>
-
-import TextField from './TextField';
+import BaseField from './BaseField';
+import FieldRow from './FieldRow';
 
 export default {
   name: 'DateField',
-  extends: [TextField],
+  mixins: [BaseField],
+  components: { FieldRow },
 };
 </script>
 
