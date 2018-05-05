@@ -8,6 +8,9 @@
 import FieldRow from './FieldRow';
 
 function toTitleCase(s) {
+  if (!s) {
+    return s;
+  }
   return s.substr(0, 1).toUpperCase() + s.substr(1);
 }
 
@@ -17,22 +20,35 @@ export default {
   components: { FieldRow },
   data() {
     return {
+      /**
+       * Hacky little bit, this provides something for the form
+       * to inject bits of its state:
+       * - context.query : the current query
+       * - context.definition : the service definition
+       */
       context: {},
     };
   },
   computed: {
+    /**
+     * The value of the field in the query, if set this
+     * will try to update the query.
+     */
     value: {
       get() {
         if (this.context.query) {
-          return this.context.query[this.name];
+          return this.getFromQuery(this.context.query);
         } else {
           return null;
         }
       },
-      set(newValue, oldValue) {
-        this.updateQuery(newValue, oldValue);
+      set(newValue, _oldValue) {
+        this.$emit('updateQuery', this.updateQuery(newValue));
       },
     },
+    /**
+     * The description of this field in the definition, if available
+     */
     definition() {
       if (this.context.definition) {
         try {
@@ -41,6 +57,9 @@ export default {
       }
       return null;
     },
+    /**
+     * Label to show on the form
+     */
     label() {
       if (this.definition && this.definition.label) {
         return this.definition.label;
@@ -48,6 +67,15 @@ export default {
         return toTitleCase(this.name);
       }
     },
+    /**
+     * Id of the input
+     */
+    inputId() {
+      return this.name;
+    },
+    /**
+     * Help text
+     */
     helpTextStr() {
       if (this.helpText) {
         return this.helpText;
@@ -57,18 +85,33 @@ export default {
         return null;
       }
     },
+    /**
+     * Context to provide to our wrapper
+     */
     rowContext() {
       return {
+        inputId: this.inputId,
         label: this.label,
         helpText: this.helpTextStr,
       };
     },
   },
   methods: {
-    updateQuery(newValue, _oldValue) {
+    /**
+     * Get the value of the field from the query
+     * This is so a subclass can read a complex value from the query
+     */
+    getFromQuery(query) {
+      return query[this.name];
+    },
+    /**
+     * Set "this" value in the query
+     * Return a map of fields in the query that should change
+     */
+    updateQuery(newValue) {
       const q = {};
       q[this.name] = newValue;
-      this.$emit('updateQuery', q);
+      return q;
     },
   },
 };

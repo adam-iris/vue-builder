@@ -1,16 +1,25 @@
 <template>
   <div class="builder">
     <div v-if="definition">
+      <slot name="description">
+        <div>
+          <h1>{{ definition.title }}</h1>
+          <p>{{ definition.description }}</p>
+        </div>
+      </slot>
       <slot name="form">
         <form>
-          <div v-for="field in fields" :key="field.name">
-            <TextField :name="field.name" />
-          </div>
+          <TextField v-for="field in fields" :key="field" :name="field" />
         </form>
+        <!--
+        <div v-for="field in fields">
+          <code>&lt;TextField name="{{ field }}" /&gt;</code>
+        </div>
+      -->
       </slot>
       <slot name="link">
         <div>
-          URL: {{ queryURL }}
+          URL: http://{{ definition.host }}{{ definition.basePath }}{{ queryURL }}
         </div>
       </slot>
     </div>

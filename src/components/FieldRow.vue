@@ -1,13 +1,19 @@
+<!--
+This wraps the field with a label, help text, etc.
+to produce a row in the form.
+-->
 <template>
-  <div>
+  <div class="field-row">
     <slot name="label">
-      <label>{{ context.label }}</label>
+      <label :for="context.inputId">{{ context.label }}</label>
     </slot>
-    <slot>
-      (Input goes here)
-    </slot>
+    <div class="input-group">
+      <slot>
+        (Input goes here)
+      </slot>
+    </div>
     <slot name="extra">
-      <div v-if="context.helpText">{{ context.helpText }}</div>
+      <div v-if="context.helpText" class="help-text">{{ context.helpText }}</div>
     </slot>
   </div>
 </template>

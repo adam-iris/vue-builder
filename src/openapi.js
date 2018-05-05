@@ -31,14 +31,14 @@ class OpenAPIDefinition {
       host: this.definition.host,
       basePath: this.definition.basePath,
       path: this.definition.path,
-      // These could come from either, so we get both and choose below
-      svcTitle: this.definition.title,
+      // These values might appear in multiple places
+      svcTitle: this.definition.info.title,
+      svcDescription: this.definition.info.description,
       opTitle: operation.summary,
-      svcDescription: this.definition.description,
       opDescription: operation.description,
     };
-    model.title = model.svcTitle;
-    model.description = model.svcDescription;
+    model.title = model.svcTitle || model.opTitle;
+    model.description = model.svcDescription || model.opDescription;
 
     // Query parameters
     model.parameterNames = [];

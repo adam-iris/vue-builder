@@ -12,6 +12,7 @@
           <TextField name="minmag" />
           <TextField name="maxmag" />
           <TextField name="magtype" />
+          <BooleanField name="includeallorigins" />
         </fieldset>
       </form>
     </div>
@@ -22,6 +23,7 @@
 import Builder from './Builder';
 import TextField from './TextField';
 import DateField from './DateField';
+import BooleanField from './BooleanField';
 
 export default {
   name: 'FDSNEvent',
@@ -29,6 +31,7 @@ export default {
     Builder,
     TextField,
     DateField,
+    BooleanField,
   },
 };
 </script>
