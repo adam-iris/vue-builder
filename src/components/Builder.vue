@@ -3,7 +3,14 @@
     <div v-if="definition">
       <slot name="description">
         <div>
-          <h1>{{ definition.title }}</h1>
+          <div id="header">
+            <h1>{{ definition.title }}</h1>
+            <slot name="link">
+              <div id="queryURL">
+                URL: http://{{ definition.host }}{{ definition.basePath }}{{ queryURL }}
+              </div>
+            </slot>
+          </div>
           <p>{{ definition.description }}</p>
         </div>
       </slot>
@@ -16,11 +23,6 @@
           <code>&lt;TextField name="{{ field }}" /&gt;</code>
         </div>
       -->
-      </slot>
-      <slot name="link">
-        <div>
-          URL: http://{{ definition.host }}{{ definition.basePath }}{{ queryURL }}
-        </div>
       </slot>
     </div>
     <div v-else>
