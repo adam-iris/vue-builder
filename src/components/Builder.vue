@@ -5,11 +5,11 @@
         <div>
           <div id="header">
             <h1>{{ definition.title }}</h1>
-            <slot name="link">
-              <div id="queryURL">
-                URL: http://{{ definition.host }}{{ definition.basePath }}{{ queryURL }}
-              </div>
-            </slot>
+            <div class="query-link">
+              <slot name="link">
+                <a :href="queryURL" target="_blank">{{ queryURL }}</a>
+              </slot>
+            </div>
           </div>
           <p>{{ definition.description }}</p>
         </div>
@@ -65,7 +65,8 @@ export default {
       }
     },
     queryURL() {
-      return qs.stringify(this.query, { encode: false, skipNulls: true, filter: qsFilter });
+      const query = qs.stringify(this.query, { encode: false, skipNulls: true, filter: qsFilter });
+      return `http://${this.definition.host}${this.definition.basePath}/query?${query}`;
     },
   },
   updated() {
@@ -88,6 +89,7 @@ export default {
   methods: {
     updateChildren() {
       this.$children.forEach((f) => {
+        // Ugly hack, the form writes into this rather than pass props
         if (f.context && !f.context.definition) {
           Vue.set(f.context, 'definition', this.definition);
           Vue.set(f.context, 'query', this.query);
