@@ -49,7 +49,7 @@ function qsFilter(prefix, value) {
 export default {
   name: 'Builder',
   components: {
-    TextField,
+    AutoField,
   },
   props: ['url'],
   data() {

@@ -14,6 +14,19 @@ function toTitleCase(s) {
   return s.substr(0, 1).toUpperCase() + s.substr(1);
 }
 
+function cleanText(t) {
+  function cleanChar(c) {
+    const code = c.charCodeAt(0);
+    if (code > 127) {
+      console.log(`Code ${code}: ${c}`);
+      return "?";
+    } else {
+      return c;
+    }
+  }
+  return t.split("").map(cleanChar).join("");
+}
+
 export default {
   name: 'BaseField',
   props: ['name', 'helpText'],
@@ -62,9 +75,9 @@ export default {
      */
     label() {
       if (this.definition && this.definition.label) {
-        return this.definition.label;
+        return cleanText(this.definition.label);
       } else {
-        return toTitleCase(this.name);
+        return cleanText(toTitleCase(this.name));
       }
     },
     /**
@@ -78,11 +91,11 @@ export default {
      */
     helpTextStr() {
       if (this.helpText) {
-        return this.helpText;
+        return cleanText(this.helpText);
       } else if (this.definition && this.definition.description) {
-        return this.definition.description;
+        return cleanText(this.definition.description);
       } else {
-        return null;
+        return "";
       }
     },
     /**
