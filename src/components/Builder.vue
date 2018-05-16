@@ -7,7 +7,7 @@
             <h1>{{ definition.title }}</h1>
             <div class="query-link">
               <slot name="link">
-                <a :href="queryURL" target="_blank">{{ queryURL }}</a>
+                <a :href="urlBase + urlQuery" target="_blank">{{ urlBase }}<wbr>{{ urlQuery }}</a>
               </slot>
             </div>
           </div>
@@ -16,7 +16,9 @@
       </slot>
       <slot name="form">
         <form>
-          <TextField v-for="field in fields" :key="field" :name="field" />
+          <fieldset>
+            <AutoField v-for="field in fields" :key="field" :name="field" />
+          </fieldset>
         </form>
         <!--
         <div v-for="field in fields">
@@ -34,7 +36,7 @@
 <script>
 import Vue from 'vue';
 import qs from 'qs';
-import TextField from './TextField';
+import AutoField from './AutoField';
 import OpenAPI from '../openapi';
 
 function qsFilter(prefix, value) {
@@ -64,9 +66,11 @@ export default {
         return [];
       }
     },
-    queryURL() {
-      const query = qs.stringify(this.query, { encode: false, skipNulls: true, filter: qsFilter });
-      return `http://${this.definition.host}${this.definition.basePath}/query?${query}`;
+    urlBase() {
+      return `http://${this.definition.host}${this.definition.basePath}/query?`;
+    },
+    urlQuery() {
+      return qs.stringify(this.query, { encode: false, skipNulls: true, filter: qsFilter });
     },
   },
   updated() {
