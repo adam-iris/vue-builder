@@ -52,4 +52,5 @@ html {
 .help-text {
   color: #666;
   font-size: 90%;
+  margin: 0;
 }

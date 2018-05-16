@@ -17,7 +17,8 @@
     "eslint-config-google": "^0.9.1",
     "npm": "^6.0.0",
     "qs": "^6.5.1",
-    "vue": "^2.5.2"
+    "vue": "^2.5.2",
+    "vue-flatpickr-component": "^7.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
