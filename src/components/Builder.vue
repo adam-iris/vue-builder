@@ -17,7 +17,8 @@
       <slot name="form">
         <form>
           <fieldset>
-            <AutoField v-for="field in fields" :key="field" :name="field" />
+            <AutoField v-for="field in fields"
+              :key="field" :name="field" :fieldCtx="fieldCtx"/>
           </fieldset>
         </form>
         <!--
@@ -59,6 +60,9 @@ export default {
     };
   },
   computed: {
+    /**
+     * List of field names
+     */
     fields() {
       if (this.definition) {
         return this.definition.parameterNames;
@@ -66,17 +70,34 @@ export default {
         return [];
       }
     },
+    /**
+     * Base URL (up to the ?)
+     */
     urlBase() {
       return `http://${this.definition.host}${this.definition.basePath}/query?`;
     },
+    /**
+     * Query parameters as a string
+     */
     urlQuery() {
       return qs.stringify(this.query, { encode: false, skipNulls: true, filter: qsFilter });
     },
+    /**
+     * Common context to share with fields
+     */
+    fieldCtx() {
+      return {
+        definition: this.definition,
+        query: this.query,
+      };
+    },
   },
-  updated() {
-    this.updateChildren();
-  },
+  // updated() {
+  //   console.log("updated");
+  //   this.updateChildren();
+  // },
   mounted() {
+    console.log("mounted");
     console.log(this.$children);
     const openAPIOptions = {
       url: this.url,
@@ -92,9 +113,11 @@ export default {
   },
   methods: {
     updateChildren() {
+      console.log("updateChildren");
       this.$children.forEach((f) => {
         // Ugly hack, the form writes into this rather than pass props
         if (f.context && !f.context.definition) {
+          console.log(f);
           Vue.set(f.context, 'definition', this.definition);
           Vue.set(f.context, 'query', this.query);
           f.$on('updateQuery', (q) => {

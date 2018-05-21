@@ -1,5 +1,5 @@
 <template>
-  <FieldRow :context="rowContext">
+  <FieldRow :rowCtx="rowCtx">
     <input type="text" :name="name" v-model="value" />
   </FieldRow>
 </template>
@@ -15,6 +15,11 @@ function toTitleCase(s) {
 }
 
 function cleanText(t) {
+  if (!t) {
+    // console.log("!t");
+    // console.log(t);
+    return "";
+  }
   function cleanChar(c) {
     const code = c.charCodeAt(0);
     if (code > 127) {
@@ -29,19 +34,8 @@ function cleanText(t) {
 
 export default {
   name: 'BaseField',
-  props: ['name', 'helpText'],
+  props: ['name', 'fieldCtx', 'helpText'],
   components: { FieldRow },
-  data() {
-    return {
-      /**
-       * Hacky little bit, this provides something for the form
-       * to inject bits of its state:
-       * - context.query : the current query
-       * - context.definition : the service definition
-       */
-      context: {},
-    };
-  },
   computed: {
     /**
      * The value of the field in the query, if set this
@@ -49,8 +43,8 @@ export default {
      */
     value: {
       get() {
-        if (this.context.query) {
-          return this.getFromQuery(this.context.query);
+        if (this.fieldCtx && this.fieldCtx.query) {
+          return this.getFromQuery(this.fieldCtx.query);
         } else {
           return null;
         }
@@ -63,9 +57,9 @@ export default {
      * The description of this field in the definition, if available
      */
     definition() {
-      if (this.context.definition) {
+      if (this.fieldCtx && this.fieldCtx.definition) {
         try {
-          return this.context.definition.params[this.name];
+          return this.fieldCtx.definition.params[this.name];
         } catch (e) {}
       }
       return null;
@@ -101,7 +95,7 @@ export default {
     /**
      * Context to provide to our wrapper
      */
-    rowContext() {
+    rowCtx() {
       return {
         inputId: this.inputId,
         label: this.label,

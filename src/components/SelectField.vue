@@ -1,5 +1,5 @@
 <template>
-  <FieldRow :context="rowContext">
+  <FieldRow :rowCtx="rowCtx">
     <select :name="name" v-model="value">
       <option v-for="choice in choices" :key="choice">{{ choice }}</option>
     </select>
@@ -8,6 +8,18 @@
 
 <script>
 import BaseField from './BaseField';
+import FieldRow from './FieldRow';
+
+export default {
+  name: 'SelectField',
+  mixins: [BaseField],
+  components: { FieldRow },
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+</style>
 import FieldRow from './FieldRow';
 
 export default {

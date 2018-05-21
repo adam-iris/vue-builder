@@ -1,5 +1,5 @@
 <template>
-  <FieldRow :context="rowContext">
+  <FieldRow :rowCtx="rowCtx">
     <input type="text" :name="name" v-model="value" />
   </FieldRow>
 </template>

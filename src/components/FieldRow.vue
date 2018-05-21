@@ -5,7 +5,7 @@ to produce a row in the form.
 <template>
   <div class="field-row">
     <slot name="label">
-      <label :for="context.inputId">{{ context.label }}</label>
+      <label :for="rowCtx.inputId">{{ rowCtx.label }}</label>
     </slot>
     <div class="input-group">
       <slot>
@@ -13,7 +13,7 @@ to produce a row in the form.
       </slot>
     </div>
     <slot name="extra">
-      <div v-if="context.helpText" class="help-text">{{ context.helpText }}</div>
+      <div v-if="rowCtx.helpText" class="help-text">{{ rowCtx.helpText }}</div>
     </slot>
   </div>
 </template>
@@ -21,7 +21,7 @@ to produce a row in the form.
 <script>
 export default {
   name: 'FieldRow',
-  props: ['context'],
+  props: ['rowCtx'],
 };
 </script>
 

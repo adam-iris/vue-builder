@@ -54,6 +54,19 @@ class OpenAPIDefinition {
   }
 }
 
+function cleanText(t) {
+  function cleanChar(c) {
+    const code = c.charCodeAt(0);
+    if (code > 127) {
+      console.log(`Code ${code}: ${c}`);
+      return "?";
+    } else {
+      return c;
+    }
+  }
+  return t.split("").map(cleanChar).join("");
+}
+
 /**
  * Fetch an OpenAPI definition from the given URL.
  *
@@ -63,7 +76,11 @@ class OpenAPIDefinition {
 function fetchOpenAPIDefinition(url) {
   return fetch(url).then((response) => {
     if (response.ok) {
-      return response.json();
+      return response.json().then((json) => {
+        console.log(json);
+        cleanText(JSON.stringify(json));
+        return json;
+      });
     } else {
       throw new Error(`Error: ${response.statusText}`);
     }
