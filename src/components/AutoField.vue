@@ -4,7 +4,7 @@ import TextField from './TextField';
 import DateField from './DateField';
 import BooleanField from './BooleanField';
 import NumberField from './NumberField';
-// import SelectField from './SelectField';
+import SelectField from './SelectField';
 
 function getFieldDefinition(definition, name) {
   // console.log(definition);
@@ -20,9 +20,9 @@ function getFieldComponent(definition) {
     if (definition.format === "date-time") {
       return DateField;
     }
-    // if (definition.enum) {
-    //   return SelectField;
-    // }
+    if (definition.enum) {
+      return SelectField;
+    }
     if (definition.type === "boolean") {
       return BooleanField;
     }

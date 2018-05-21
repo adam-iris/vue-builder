@@ -19,7 +19,7 @@ pre, blockquote, dl, figure, table, p, ul, ol, form {
     margin-bottom: 1.5rem;
 }
 
-input {
+input, textarea, select {
   margin: 0;
 }
 
