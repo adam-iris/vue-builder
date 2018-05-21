@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import Vue from 'vue';
+// import Vue from 'vue';
 import qs from 'qs';
 import AutoField from './AutoField';
 import OpenAPI from '../openapi';
@@ -97,8 +97,6 @@ export default {
   //   this.updateChildren();
   // },
   mounted() {
-    console.log("mounted");
-    console.log(this.$children);
     const openAPIOptions = {
       url: this.url,
     };
@@ -112,20 +110,6 @@ export default {
     });
   },
   methods: {
-    updateChildren() {
-      console.log("updateChildren");
-      this.$children.forEach((f) => {
-        // Ugly hack, the form writes into this rather than pass props
-        if (f.context && !f.context.definition) {
-          console.log(f);
-          Vue.set(f.context, 'definition', this.definition);
-          Vue.set(f.context, 'query', this.query);
-          f.$on('updateQuery', (q) => {
-            this.query = Object.assign({}, this.query, q);
-          });
-        }
-      });
-    },
   },
 };
 </script>

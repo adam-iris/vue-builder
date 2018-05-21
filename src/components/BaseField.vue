@@ -50,7 +50,10 @@ export default {
         }
       },
       set(newValue, _oldValue) {
-        this.$emit('updateQuery', this.updateQuery(newValue));
+        // this.$emit('updateQuery', this.updateQuery(newValue));
+        if (this.fieldCtx && this.fieldCtx.query) {
+          Object.assign(this.fieldCtx.query, this.updateQuery(newValue));
+        }
       },
     },
     /**
