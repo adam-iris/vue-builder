@@ -34,7 +34,7 @@ function _cleanText(t) {
 
 export default {
   name: 'BaseField',
-  props: ['name', 'fieldCtx', 'helpText'],
+  props: ['name', 'helpText'],
   components: { FieldRow },
   computed: {
     /**
@@ -43,26 +43,19 @@ export default {
      */
     value: {
       get() {
-        if (this.fieldCtx && this.fieldCtx.query) {
-          return this.getFromQuery(this.fieldCtx.query);
-        } else {
-          return null;
-        }
+        return this.getFromQuery(this.$store.state.query);
       },
       set(newValue, _oldValue) {
-        // this.$emit('updateQuery', this.updateQuery(newValue));
-        if (this.fieldCtx && this.fieldCtx.query) {
-          Object.assign(this.fieldCtx.query, this.updateQuery(newValue));
-        }
+        this.$store.commit('updateQuery', this.updateQuery(newValue));
       },
     },
     /**
      * The description of this field in the definition, if available
      */
     definition() {
-      if (this.fieldCtx && this.fieldCtx.definition) {
+      if (this.$store.state.definition) {
         try {
-          return this.fieldCtx.definition.params[this.name];
+          return this.$store.state.definition.params[this.name];
         } catch (e) {}
       }
       return null;

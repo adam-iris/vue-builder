@@ -1,5 +1,7 @@
 <script>
 
+import store from '../store';
+
 import TextField from './TextField';
 import DateField from './DateField';
 import BooleanField from './BooleanField';
@@ -36,13 +38,12 @@ function getFieldComponent(definition) {
 export default {
   name: 'AutoField',
   functional: true,
-  props: ['name', 'fieldCtx'],
+  props: ['name'],
   render(h, context) {
-    // console.log(context);
-    if (context.props.fieldCtx.definition) {
+    if (store.state.definition) {
       // console.log(context.props.fieldCtx.definition);
       const component = getFieldComponent(
-        getFieldDefinition(context.props.fieldCtx.definition, context.props.name));
+        getFieldDefinition(store.state.definition, context.props.name));
       // console.log(component);
       return h(component, context);
     } else {

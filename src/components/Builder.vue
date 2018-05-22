@@ -18,7 +18,7 @@
         <form>
           <fieldset>
             <AutoField v-for="field in fields"
-              :key="field" :name="field" :fieldCtx="fieldCtx"/>
+              :key="field" :name="field" />
           </fieldset>
         </form>
         <!--
@@ -53,13 +53,19 @@ export default {
     AutoField,
   },
   props: ['url'],
-  data() {
-    return {
-      definition: null,
-      query: {},
-    };
-  },
   computed: {
+    /**
+     * Service definition (if it exists)
+     */
+    definition() {
+      return this.$store.state.definition;
+    },
+    /**
+     * Current query
+     */
+    query() {
+      return this.$store.state.query;
+    },
     /**
      * List of field names
      */
@@ -82,15 +88,6 @@ export default {
     urlQuery() {
       return qs.stringify(this.query, { encode: false, skipNulls: true, filter: qsFilter });
     },
-    /**
-     * Common context to share with fields
-     */
-    fieldCtx() {
-      return {
-        definition: this.definition,
-        query: this.query,
-      };
-    },
   },
   // updated() {
   //   console.log("updated");
@@ -104,7 +101,7 @@ export default {
       if (!definition) {
         throw new Error("No definition returned!");
       }
-      this.definition = Object.assign({}, definition);
+      this.$store.commit('setDefinition', definition);
     }).catch((error) => {
       console.error(error);
     });
