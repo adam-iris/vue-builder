@@ -1,16 +1,30 @@
 <template>
   <div id="app">
-    <FDSNEventSimple />
+    <div class="page-picker">
+      <select v-model="page">
+        <option>FDSNEvent</option>
+        <option>FDSNEventSimple</option>
+      </select>
+    </div>
+    <FDSNEvent v-if="page == 'FDSNEvent'"/>
+    <FDSNEventSimple v-if="page == 'FDSNEventSimple'"/>
   </div>
 </template>
 
 <script>
+import FDSNEvent from './components/FDSNEvent';
 import FDSNEventSimple from './components/FDSNEventSimple';
 // import ExampleForm from './components/ExampleForm';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      page: 'FDSNEvent',
+    };
+  },
   components: {
+    FDSNEvent,
     FDSNEventSimple,
   },
 };
