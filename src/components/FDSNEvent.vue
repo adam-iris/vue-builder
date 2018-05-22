@@ -4,15 +4,15 @@
       <form>
         <fieldset>
           <legend>Dates</legend>
-          <DateField name="starttime" />
-          <DateField name="endtime" />
+          <DateField name="starttime" :fieldCtx="fieldCtx" />
+          <DateField name="endtime" :fieldCtx="fieldCtx" />
         </fieldset>
         <fieldset>
           <legend>Event</legend>
-          <TextField name="minmag" />
-          <TextField name="maxmag" />
-          <SelectField name="magtype" />
-          <BooleanField name="includeallorigins" />
+          <TextField name="minmag" :fieldCtx="fieldCtx" />
+          <TextField name="maxmag" :fieldCtx="fieldCtx" />
+          <SelectField name="magtype" :fieldCtx="fieldCtx" />
+          <BooleanField name="includeallorigins" :fieldCtx="fieldCtx" />
         </fieldset>
       </form>
     </div>
