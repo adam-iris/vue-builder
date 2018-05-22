@@ -14,7 +14,7 @@ function toTitleCase(s) {
   return s.substr(0, 1).toUpperCase() + s.substr(1);
 }
 
-function cleanText(t) {
+function _cleanText(t) {
   if (!t) {
     // console.log("!t");
     // console.log(t);
@@ -72,9 +72,9 @@ export default {
      */
     label() {
       if (this.definition && this.definition.label) {
-        return cleanText(this.definition.label);
+        return this.definition.label;
       } else {
-        return cleanText(toTitleCase(this.name));
+        return toTitleCase(this.name);
       }
     },
     /**
@@ -88,9 +88,9 @@ export default {
      */
     helpTextStr() {
       if (this.helpText) {
-        return cleanText(this.helpText);
+        return this.helpText;
       } else if (this.definition && this.definition.description) {
-        return cleanText(this.definition.description);
+        return this.definition.description;
       } else {
         return "";
       }
