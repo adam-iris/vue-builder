@@ -34,7 +34,7 @@ function _cleanText(t) {
 
 export default {
   name: 'BaseField',
-  props: ['name', 'helpText'],
+  props: ['name', 'label', 'helpText'],
   components: { FieldRow },
   computed: {
     /**
@@ -63,8 +63,10 @@ export default {
     /**
      * Label to show on the form
      */
-    label() {
-      if (this.definition && this.definition.label) {
+    labelStr() {
+      if (this.label) {
+        return this.label;
+      } else if (this.definition && this.definition.label) {
         return this.definition.label;
       } else {
         return toTitleCase(this.name);
@@ -94,7 +96,7 @@ export default {
     rowCtx() {
       return {
         inputId: this.inputId,
-        label: this.label,
+        label: this.labelStr,
         helpText: this.helpTextStr,
       };
     },
