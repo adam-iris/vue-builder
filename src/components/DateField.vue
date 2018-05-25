@@ -1,17 +1,30 @@
 <template>
   <FieldRow :rowCtx="rowCtx">
-    <input type="text" :name="name" v-model="value" />
+    <FlatPickr type="text" :name="name" v-model="value" :config="flatpickr_config" />
   </FieldRow>
 </template>
 
 <script>
+import FlatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
 import BaseField from './BaseField';
 import FieldRow from './FieldRow';
 
 export default {
   name: 'DateField',
   mixins: [BaseField],
-  components: { FieldRow },
+  components: { FieldRow, FlatPickr },
+  data() {
+    return {
+      flatpickr_config: {
+        allowInput: true,
+        enableTime: true,
+        enableSeconds: true,
+        time_24hr: true,
+        dateFormat: "Y-m-dTH:i:S",
+      },
+    };
+  },
 };
 </script>
 
