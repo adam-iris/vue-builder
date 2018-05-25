@@ -14,16 +14,10 @@ export default {
   name: 'DateField',
   mixins: [BaseField],
   components: { FieldRow, FlatPickr },
-  data() {
-    return {
-      flatpickr_config: {
-        allowInput: true,
-        enableTime: true,
-        enableSeconds: true,
-        time_24hr: true,
-        dateFormat: "Y-m-dTH:i:S",
-      },
-    };
+  computed: {
+    flatpickr_config() {
+      return this.$store.state.flatpickr_config;
+    },
   },
 };
 </script>
