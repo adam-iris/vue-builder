@@ -1,17 +1,21 @@
 <template>
   <FieldRow :rowCtx="rowCtx">
-    <input type="number" :id="inputId" :name="queryKey" v-model="value" />
+    <slot>Options here</slot>
   </FieldRow>
 </template>
 
 <script>
-import BaseField from './BaseField';
-import FieldRow from './FieldRow';
+
+import BaseField from '../BaseField';
 
 export default {
-  name: 'NumberField',
+  name: 'RadioGroup',
   mixins: [BaseField],
-  components: { FieldRow },
+  provide() {
+    return {
+      groupName: this.queryKey,
+    };
+  },
 };
 </script>
 

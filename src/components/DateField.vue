@@ -1,6 +1,6 @@
 <template>
   <FieldRow :rowCtx="rowCtx">
-    <FlatPickr type="text" :name="name" v-model="value" :config="flatpickr_config" />
+    <FlatPickr type="text" :name="queryKey" v-model="value" :config="flatpickr_config" />
   </FieldRow>
 </template>
 

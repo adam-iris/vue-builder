@@ -1,6 +1,6 @@
 <template>
   <FieldRow :rowCtx="rowCtx">
-    <input type="text" :name="name" v-model="value" />
+    <input type="text" :name="queryKey" v-model="value" />
   </FieldRow>
 </template>
 
@@ -38,6 +38,12 @@ export default {
   components: { FieldRow },
   computed: {
     /**
+     * This is so fields can set their own field name
+     */
+    queryKey() {
+      return this.name;
+    },
+    /**
      * The value of the field in the query, if set this
      * will try to update the query.
      */
@@ -55,7 +61,7 @@ export default {
     definition() {
       if (this.$store.state.definition) {
         try {
-          return this.$store.state.definition.params[this.name];
+          return this.$store.state.definition.params[this.queryKey];
         } catch (e) {}
       }
       return null;
@@ -69,14 +75,14 @@ export default {
       } else if (this.definition && this.definition.label) {
         return this.definition.label;
       } else {
-        return toTitleCase(this.name);
+        return toTitleCase(this.queryKey);
       }
     },
     /**
      * Id of the input
      */
     inputId() {
-      return this.name;
+      return this.queryKey;
     },
     /**
      * Help text
@@ -107,7 +113,7 @@ export default {
      * This is so a subclass can read a complex value from the query
      */
     getFromQuery(query) {
-      return query[this.name];
+      return query[this.queryKey];
     },
     /**
      * Set "this" value in the query
@@ -115,7 +121,7 @@ export default {
      */
     updateQuery(newValue) {
       const q = {};
-      q[this.name] = newValue;
+      q[this.queryKey] = newValue;
       return q;
     },
   },

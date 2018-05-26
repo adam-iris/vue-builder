@@ -1,6 +1,6 @@
 <template>
   <FieldRow :rowCtx="rowCtx">
-    <input type="checkbox" :name="name" v-model="value" />
+    <input type="checkbox" :name="queryKey" v-model="value" />
   </FieldRow>
 </template>
 
