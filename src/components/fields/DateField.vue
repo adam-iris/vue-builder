@@ -8,7 +8,7 @@
 import FlatPickr from 'vue-flatpickr-component';
 import 'flatpickr/dist/flatpickr.css';
 import BaseField from './BaseField';
-import FieldRow from './FieldRow';
+import FieldRow from '../FieldRow';
 
 export default {
   name: 'DateField',

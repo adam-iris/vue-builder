@@ -14,7 +14,7 @@
 <script>
 import Vue from 'vue';
 import qs from 'qs';
-import TextField from './TextField';
+import TextField from './fields/TextField';
 import OpenAPI from '../openapi';
 
 function qsFilter(prefix, value) {

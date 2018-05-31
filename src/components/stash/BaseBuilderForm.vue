@@ -1,7 +1,7 @@
 <script>
 import Vue from 'vue';
 import qs from 'qs';
-import TextField from './TextField';
+import TextField from './fields/TextField';
 
 export default {
   name: 'BaseBuilderForm',

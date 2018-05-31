@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import FDSNEvent from './components/FDSNEvent';
-import FDSNEventSimple from './components/FDSNEventSimple';
+import FDSNEvent from './components/builders/FDSNEvent';
+import FDSNEventSimple from './components/builders/FDSNEventSimple';
 // import ExampleForm from './components/ExampleForm';
 
 export default {

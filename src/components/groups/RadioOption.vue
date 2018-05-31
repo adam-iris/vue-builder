@@ -10,7 +10,7 @@
 
 <script>
 
-import BaseField from '../BaseField';
+import BaseField from '../fields/BaseField';
 
 export default {
   name: 'RadioOption',

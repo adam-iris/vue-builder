@@ -8,7 +8,7 @@
 
 <script>
 import BaseField from './BaseField';
-import FieldRow from './FieldRow';
+import FieldRow from '../FieldRow';
 
 export default {
   name: 'SelectField',

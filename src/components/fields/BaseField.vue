@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import FieldRow from './FieldRow';
+import FieldRow from '../FieldRow';
 
 function toTitleCase(s) {
   if (!s) {

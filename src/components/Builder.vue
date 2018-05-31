@@ -37,7 +37,7 @@
 <script>
 // import Vue from 'vue';
 import qs from 'qs';
-import AutoField from './AutoField';
+import AutoField from './fields/AutoField';
 import OpenAPI from '../openapi';
 
 function qsFilter(prefix, value) {

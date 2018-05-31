@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import Builder from './Builder';
+import Builder from '../Builder';
 
 export default {
   name: 'FDSNEventSimple',

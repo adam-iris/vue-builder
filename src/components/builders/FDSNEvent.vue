@@ -39,15 +39,15 @@
 </template>
 
 <script>
-import Builder from './Builder';
-import TextField from './TextField';
-import NumberField from './NumberField';
-import DateField from './DateField';
-import DateRange from './groups/DateRange';
-import BooleanField from './BooleanField';
-import SelectField from './SelectField';
-import RadioGroup from './groups/RadioGroup';
-import RadioOption from './groups/RadioOption';
+import Builder from '../Builder';
+import TextField from '../fields/TextField';
+import NumberField from '../fields/NumberField';
+import DateField from '../fields/DateField';
+import DateRange from '../groups/DateRange';
+import BooleanField from '../fields/BooleanField';
+import SelectField from '../fields/SelectField';
+import RadioGroup from '../groups/RadioGroup';
+import RadioOption from '../groups/RadioOption';
 
 export default {
   name: 'FDSNEvent',

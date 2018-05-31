@@ -23,8 +23,8 @@
 <script>
 import Vue from 'vue';
 import qs from 'qs';
-import TextField from './TextField';
-import DateField from './DateField';
+import TextField from './fields/TextField';
+import DateField from './fields/DateField';
 import OpenAPI from '../openapi';
 
 function qsFilter(prefix, value) {

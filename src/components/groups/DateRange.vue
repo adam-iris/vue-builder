@@ -1,5 +1,6 @@
 <template>
-  <FieldRow :rowCtx="rowCtx">
+  <FieldRow :rowCtx="rowCtx" class="columns">
+    <div class=""
     <input type="text" :name="startName" v-model="startValue" />
     <input type="text" :name="endName" v-model="endValue" />
   </FieldRow>
@@ -7,7 +8,7 @@
 
 <script>
 
-import BaseField from '../BaseField';
+import BaseField from '../fields/BaseField';
 
 export default {
   name: 'DateRange',

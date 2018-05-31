@@ -1,6 +1,6 @@
 <script>
 
-import store from '../store';
+import store from '../../store';
 
 import TextField from './TextField';
 import DateField from './DateField';
