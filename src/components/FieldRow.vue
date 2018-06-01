@@ -7,7 +7,7 @@ to produce a row in the form.
     <slot name="label">
       <label :for="rowCtx.inputId">{{ rowCtx.label }}</label>
     </slot>
-    <div class="input-group">
+    <div class="field-inputs">
       <slot>
         (Input goes here)
       </slot>

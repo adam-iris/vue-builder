@@ -1,8 +1,13 @@
 <template>
-  <FieldRow :rowCtx="rowCtx" class="columns">
-    <div class=""
-    <input type="text" :name="startName" v-model="startValue" />
-    <input type="text" :name="endName" v-model="endValue" />
+  <FieldRow :rowCtx="rowCtx">
+    <div class="row">
+      <div class="col-6">
+        <input type="text" class="form-control" :name="startName" v-model="startValue" />
+      </div>
+      <div class="col-6">
+        <input type="text" class="form-control" :name="endName" v-model="endValue" />
+      </div>
+    </div>
   </FieldRow>
 </template>
 

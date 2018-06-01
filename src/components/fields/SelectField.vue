@@ -1,6 +1,6 @@
 <template>
   <FieldRow :rowCtx="rowCtx">
-    <select :name="queryKey" v-model="value">
+    <select class="form-control" :id="inputId" :name="queryKey" v-model="value">
       <option v-for="choice in choices" :key="choice">{{ choice }}</option>
     </select>
   </FieldRow>
