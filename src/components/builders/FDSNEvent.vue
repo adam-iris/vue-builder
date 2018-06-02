@@ -2,19 +2,25 @@
   <Builder url="/static/example/openapi-event.json">
     <div slot="form">
       <form>
-        <fieldset>
-          <legend>Dates</legend>
-          <DateRange label="Dates" startName="starttime" endName="endtime" />
-          <DateField name="starttime" />
-          <DateField name="endtime" />
-        </fieldset>
-        <fieldset>
-          <legend>Event</legend>
-          <NumberField name="minmag" />
-          <NumberField name="maxmag" />
-          <SelectField name="magtype" />
-          <BooleanField name="includeallorigins" />
-        </fieldset>
+        <div class="row">
+          <div class="col-md-6">
+            <fieldset>
+              <legend>Dates</legend>
+              <DateRange label="Dates" startName="starttime" endName="endtime" />
+              <DateField name="starttime" />
+              <DateField name="endtime" />
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <fieldset>
+              <legend>Event</legend>
+              <NumberField name="minmag" />
+              <NumberField name="maxmag" />
+              <SelectField name="magtype" />
+              <BooleanField name="includeallorigins" />
+            </fieldset>
+          </div>
+        </div>
         <fieldset>
           <legend>Location</legend>
           <RadioGroup name="_location">
@@ -32,7 +38,6 @@
             </RadioOption>
           </RadioGroup>
         </fieldset>
-
       </form>
     </div>
   </Builder>

@@ -1,9 +1,11 @@
 $line-height-base: 1.2;
-
 $enable-gradients: true;
 $enable-rounded: true;
-
+$secondary: #aaa;
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+$fa-font-path: "fonts";
+@import "../node_modules/font-awesome/scss/font-awesome";
 
 body {
   margin: 1rem;
