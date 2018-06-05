@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="page-picker">
-      <select v-model="page">
+      <select v-model="page" class="form-control" style="width:auto">
         <option>FDSNEvent</option>
         <option>FDSNEventSimple</option>
       </select>

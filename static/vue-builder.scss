@@ -1,8 +1,27 @@
 $line-height-base: 1.2;
 $enable-gradients: true;
 $enable-rounded: true;
-$secondary: #aaa;
-@import "../node_modules/bootstrap/scss/bootstrap";
+$enable-shadows: true;
+// $primary: hsl(268, 100%, 60%);
+$secondary: #ccc;
+$theme-colors: (
+  "default": $secondary,
+);
+@import "bootstrap";
+
+@mixin gradient-bg($color) {
+  @if $enable-gradients {
+    background: $color linear-gradient(180deg, lighten($color, 20%), $color) repeat-x;
+  } @else {
+    background-color: $color;
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .btn-#{$color} {
+    @include button-variant($value, $value);
+  }
+}
 
 $fa-font-path: "fonts";
 @import "../node_modules/font-awesome/scss/font-awesome";
