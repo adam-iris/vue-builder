@@ -52,8 +52,18 @@ export default {
   components: {
     AutoField,
   },
-  props: ['url'],
+  props: ['url', 'path'],
   computed: {
+    /**
+     * Options for parsing the OpenAPI definition
+     */
+    openAPIOptions() {
+      return {
+        url: this.url,
+        path: this.path || '/query',
+        method: 'get',
+      };
+    },
     /**
      * Service definition (if it exists)
      */
@@ -94,10 +104,7 @@ export default {
   //   this.updateChildren();
   // },
   mounted() {
-    const openAPIOptions = {
-      url: this.url,
-    };
-    OpenAPI.loadOpenAPIDefinition(openAPIOptions).then((definition) => {
+    OpenAPI.loadOpenAPIDefinition(this.openAPIOptions).then((definition) => {
       if (!definition) {
         throw new Error("No definition returned!");
       }

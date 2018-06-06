@@ -20,10 +20,12 @@ class OpenAPIDefinition {
     if (!operation) {
       throw new Error(`Method ${method} is not defined for ${path}`);
     }
+    const parameters = (pathData.parameters || []).concat(operation.parameters || []);
+    operation.parameters = parameters;
     return operation;
   }
   generateBuilderModel(options) {
-    const fullOptions = Object.assign({}, options, DEFAULT_OPTIONS);
+    const fullOptions = Object.assign({}, DEFAULT_OPTIONS, options);
     const operation = this.getOperation(fullOptions.path, fullOptions.method);
 
     // For many of these, we have to choose between service-level and operation-level
@@ -43,13 +45,17 @@ class OpenAPIDefinition {
     // Query parameters
     model.parameterNames = [];
     model.params = {};
-    operation.parameters.forEach((param) => {
-      // Only handle the query parameters
-      if (param.in === 'query') {
-        model.parameterNames.push(param.name);
-        model.params[param.name] = param;
-      }
-    });
+    if (!operation.parameters) {
+      console.log("Operation has no parameters!");
+    } else {
+      operation.parameters.forEach((param) => {
+        // Only handle the query parameters
+        if (param.in === 'query') {
+          model.parameterNames.push(param.name);
+          model.params[param.name] = param;
+        }
+      });
+    }
     return model;
   }
 }

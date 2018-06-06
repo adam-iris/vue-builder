@@ -4,10 +4,12 @@
       <select v-model="page">
         <option>FDSNEvent</option>
         <option>FDSNEventSimple</option>
+        <option>GeoCSV</option>
       </select>
     </div>
     <FDSNEvent v-if="page == 'FDSNEvent'"/>
     <FDSNEventSimple v-if="page == 'FDSNEventSimple'"/>
+    <GeoCSV v-if="page == 'GeoCSV'"/>
   </div>
 </template>
 
@@ -15,17 +17,20 @@
 import FDSNEvent from './components/builders/FDSNEvent';
 import FDSNEventSimple from './components/builders/FDSNEventSimple';
 // import ExampleForm from './components/ExampleForm';
+import GeoCSV from './components/builders/GeoCSV';
+
 
 export default {
   name: 'App',
   data() {
     return {
-      page: 'FDSNEvent',
+      page: 'GeoCSV',
     };
   },
   components: {
     FDSNEvent,
     FDSNEventSimple,
+    GeoCSV,
   },
 };
 </script>
