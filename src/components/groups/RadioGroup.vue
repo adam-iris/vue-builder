@@ -1,7 +1,7 @@
 <template>
-  <FieldRow :rowCtx="rowCtx">
+  <div>
     <slot>Options here</slot>
-  </FieldRow>
+  </div>
 </template>
 
 <script>
