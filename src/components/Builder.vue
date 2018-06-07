@@ -53,6 +53,11 @@ export default {
     AutoField,
   },
   props: ['url', 'path'],
+  provide() {
+    return {
+      builderBasePath: 'builder',
+    };
+  },
   computed: {
     /**
      * Options for parsing the OpenAPI definition

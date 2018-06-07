@@ -1,7 +1,7 @@
 <template>
   <FieldRow :rowCtx="rowCtx">
-    <FlatPickr type="text" class="form-control" :id="inputId"
-        :name="queryKey" v-model="value" :config="flatpickr_config" />
+    <FlatPickr type="text" class="form-control"
+        v-bind="inputAttrs" v-model="value" :config="flatpickr_config" />
   </FieldRow>
 </template>
 

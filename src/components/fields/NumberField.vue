@@ -1,6 +1,6 @@
 <template>
   <FieldRow :rowCtx="rowCtx">
-    <input type="number" class="form-control" :id="inputId" :name="queryKey" v-model="value" />
+    <input type="number" class="form-control" v-bind="inputAttrs" v-model="value" />
   </FieldRow>
 </template>
 

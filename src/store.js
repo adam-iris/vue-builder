@@ -15,10 +15,14 @@ const FLATPICKR_CONFIG = {
 export default new Vuex.Store({
   state: {
     definition: null,
+    builder: null,
     query: {},
     flatpickr_config: FLATPICKR_CONFIG,
   },
   mutations: {
+    setBuilder(state, b) {
+      state.builder = b;
+    },
     setDefinition(state, d) {
       state.definition = d;
     },

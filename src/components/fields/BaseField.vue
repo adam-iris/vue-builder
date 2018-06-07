@@ -1,12 +1,15 @@
 <template>
   <FieldRow :rowCtx="rowCtx">
-    <input type="text" class="form-control" :id="inputId" :name="queryKey" v-model="value" />
+    <input type="text" class="form-control" v-bind="inputAttrs" v-model="value" />
   </FieldRow>
 </template>
 
 <script>
 import FieldRow from '../FieldRow';
 
+/**
+ * Capitalize the first letter of the string
+ */
 function toTitleCase(s) {
   if (!s) {
     return s;
@@ -14,6 +17,9 @@ function toTitleCase(s) {
   return s.substr(0, 1).toUpperCase() + s.substr(1);
 }
 
+/**
+ * Clean out any non-ascii characters in the test
+ */
 function _cleanText(t) {
   if (!t) {
     // console.log("!t");
@@ -36,16 +42,28 @@ export default {
   name: 'BaseField',
   props: ['name', 'label', 'helpText'],
   components: { FieldRow },
+  provide() {
+    return {
+      builderBasePath: this.builderPath,
+    };
+  },
+  inject: ['builderBasePath'],
   computed: {
     /**
-     * This is so fields can set their own field name
+     * "Path" in the builder to this field
+     */
+    builderPath() {
+      return `${this.builderBasePath}.${this.name}`;
+    },
+    /**
+     * The query key mapped to this field
      */
     queryKey() {
       return this.name;
     },
     /**
-     * The value of the field in the query, if set this
-     * will try to update the query.
+     * The value of the field in the query.
+     * Update the query by setting this value.
      */
     value: {
       get() {
@@ -97,14 +115,49 @@ export default {
       }
     },
     /**
+     * Attributes to pass to the input
+     */
+    inputAttrs() {
+      return {
+        id: this.inputId,
+        name: this.queryKey,
+      };
+    },
+    /**
+     * Is this field disabled?
+     */
+    disabled() {
+      return this.parentCtx.disabled;
+    },
+    /**
+     * Context to provide to subcomponents.
+     */
+    builderCtx() {
+      return Object.assign({}, this.parentCtx, {
+        disabled: this.disabled,
+      });
+    },
+    /**
+     * Context from parent
+     */
+    parentCtx() {
+      let p = this.$parent;
+      while (p) {
+        if (p.builderCtx) {
+          return p.builderCtx;
+        }
+        p = p.$parent;
+      }
+      return {};
+    },
+    /**
      * Context to provide to our wrapper
      */
     rowCtx() {
-      return {
-        inputId: this.inputId,
+      return Object.assign({}, this.inputAttrs, {
         label: this.labelStr,
         helpText: this.helpTextStr,
-      };
+      });
     },
   },
   methods: {
