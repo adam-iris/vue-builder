@@ -4,7 +4,9 @@
       <input type="radio" :name="queryKey" :value="label" v-model="value" />
       {{ label }}
     </div>
-    <slot>Option</slot>
+    <div :class="{hidden: !selected}">
+      <slot>Option</slot>
+    </div>
   </div>
 </template>
 
@@ -21,6 +23,12 @@ export default {
   computed: {
     queryKey() {
       return this.groupName;
+    },
+    selected() {
+      return (this.value === this.label);
+    },
+    disabled() {
+      return !this.selected;
     },
   },
 };

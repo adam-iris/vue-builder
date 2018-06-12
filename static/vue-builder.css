@@ -8689,4 +8689,8 @@ legend {
   /*! line-height: 1.2; */
 }
 
-/*# sourceMappingURL=vue-builder.css.map */
+.hidden {
+  display: none;
+}
+
+/*# sourceMappingURL=static/vue-builder.css.map */

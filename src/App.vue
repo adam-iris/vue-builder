@@ -24,7 +24,7 @@ export default {
   name: 'App',
   data() {
     return {
-      page: 'GeoCSV',
+      page: 'FDSNEvent',
     };
   },
   components: {

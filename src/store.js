@@ -17,6 +17,7 @@ export default new Vuex.Store({
     definition: null,
     builder: null,
     query: {},
+    disabled: {},
     flatpickr_config: FLATPICKR_CONFIG,
   },
   mutations: {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     },
     updateQuery(state, q) {
       state.query = Object.assign({}, state.query, q);
+    },
+    disable(state, disabled) {
+      state.disabled = Object.assign({}, state.disabled, disabled);
     },
   },
 });

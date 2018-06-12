@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import BuilderElement from '../BuilderElement';
 import FieldRow from '../FieldRow';
 
 /**
@@ -41,19 +42,14 @@ function _cleanText(t) {
 export default {
   name: 'BaseField',
   props: ['name', 'label', 'helpText'],
+  mixins: [BuilderElement],
   components: { FieldRow },
-  provide() {
-    return {
-      builderBasePath: this.builderPath,
-    };
-  },
-  inject: ['builderBasePath'],
   computed: {
     /**
      * "Path" in the builder to this field
      */
-    builderPath() {
-      return `${this.builderBasePath}.${this.name}`;
+    builderElementName() {
+      return this.queryKey;
     },
     /**
      * The query key mapped to this field
@@ -122,12 +118,6 @@ export default {
         id: this.inputId,
         name: this.queryKey,
       };
-    },
-    /**
-     * Is this field disabled?
-     */
-    disabled() {
-      return this.parentCtx.disabled;
     },
     /**
      * Context to provide to subcomponents.
