@@ -1,17 +1,20 @@
 <template>
   <div>
     <div>
-      <input type="radio" :name="queryKey" :value="label" v-model="value" />
-      {{ label }}
+      <label>
+        <input type="radio" :name="queryKey" :value="label" v-model="value" />
+        {{ label }}
+      </label>
     </div>
     <div :class="{hidden: !selected}">
-      <slot>Option</slot>
+      <slot><!-- no option set --></slot>
     </div>
   </div>
 </template>
 
 <script>
 
+import slugify from 'slugify';
 import BaseField from '../fields/BaseField';
 
 export default {
@@ -23,6 +26,9 @@ export default {
   computed: {
     queryKey() {
       return this.groupName;
+    },
+    inputId() {
+      return slugify(`${this.queryKey} ${this.label}`);
     },
     selected() {
       return (this.value === this.label);

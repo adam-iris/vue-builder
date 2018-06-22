@@ -21,7 +21,7 @@ to produce a row in the form.
 <script>
 export default {
   name: 'FieldRow',
-  props: ['rowCtx'],
+  props: ['rowCtx', 'hideRow'],
 };
 </script>
 

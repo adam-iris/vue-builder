@@ -41,6 +41,9 @@ import AutoField from './fields/AutoField';
 import OpenAPI from '../openapi';
 
 function qsFilter(prefix, value) {
+  if (prefix[0] === '_') {
+    return undefined;
+  }
   if (value === '') {
     return undefined;
   }

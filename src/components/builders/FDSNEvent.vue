@@ -2,37 +2,54 @@
   <Builder url="/static/example/openapi-event.json">
     <div slot="form">
       <form>
-        <fieldset>
-          <legend>Dates</legend>
-          <DateRange label="Dates" startName="starttime" endName="endtime" />
-          <DateField name="starttime" />
-          <DateField name="endtime" />
-        </fieldset>
-        <fieldset>
-          <legend>Event</legend>
-          <NumberField name="minmag" />
-          <NumberField name="maxmag" />
-          <SelectField name="magtype" />
-          <BooleanField name="includeallorigins" />
-        </fieldset>
-        <fieldset>
-          <legend>Location</legend>
-          <RadioGroup name="_location">
-            <RadioOption label="Box">
-              <NumberField name="minlat" />
-              <NumberField name="minlon" />
-              <NumberField name="maxlat" />
-              <NumberField name="maxlon" />
-            </RadioOption>
-            <RadioOption label="Toroid">
-              <NumberField name="lat" />
-              <NumberField name="lon" />
-              <NumberField name="minradius" />
-              <NumberField name="maxradius" />
-            </RadioOption>
-          </RadioGroup>
-        </fieldset>
-
+        <div class="row">
+          <div class="col-6">
+            <fieldset>
+              <legend>Event</legend>
+              <DateField name="starttime" />
+              <DateField name="endtime" />
+              <NumberField name="minmag" />
+              <NumberField name="maxmag" />
+              <SelectField name="magtype" />
+              <SelectField name="catalog" />
+              <SelectField name="contributor" />
+              <NumberField name="mindepth" />
+              <NumberField name="maxdepth" />
+            </fieldset>
+            <fieldset>
+              <legend>Advanced</legend>
+              <NumberField name="eventid" />
+              <DateField name="updatedafter" />
+            </fieldset>
+          </div>
+          <div class="col-6">
+            <fieldset>
+              <legend>Location</legend>
+              <RadioGroup name="_location">
+                <RadioOption label="All"></RadioOption>
+                <RadioOption label="Box">
+                  <GeoBox n="maxlat" s="minlat" e="maxlon" w="minlon" />
+                </RadioOption>
+                <RadioOption label="Toroid">
+                  <NumberField name="lat" />
+                  <NumberField name="lon" />
+                  <NumberField name="minradius" />
+                  <NumberField name="maxradius" />
+                </RadioOption>
+              </RadioGroup>
+            </fieldset>
+            <fieldset>
+              <legend>Options</legend>
+              <BooleanField name="includeallorigins" />
+              <BooleanField name="includeallmagnitudes" />
+              <BooleanField name="includearrivals" />
+              <SelectField name="orderby" />
+              <SelectField name="format" />
+              <NumberField name="limit" />
+              <NumberField name="offset" />
+            </fieldset>
+          </div>
+        </div>
       </form>
     </div>
   </Builder>
@@ -43,11 +60,11 @@ import Builder from '../Builder';
 import TextField from '../fields/TextField';
 import NumberField from '../fields/NumberField';
 import DateField from '../fields/DateField';
-import DateRange from '../groups/DateRange';
 import BooleanField from '../fields/BooleanField';
 import SelectField from '../fields/SelectField';
 import RadioGroup from '../groups/RadioGroup';
 import RadioOption from '../groups/RadioOption';
+import GeoBox from '../groups/GeoBox';
 
 export default {
   name: 'FDSNEvent',
@@ -56,11 +73,11 @@ export default {
     TextField,
     NumberField,
     DateField,
-    DateRange,
     BooleanField,
     SelectField,
     RadioGroup,
     RadioOption,
+    GeoBox,
   },
 };
 </script>
