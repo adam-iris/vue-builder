@@ -37,8 +37,8 @@
 <script>
 // import Vue from 'vue';
 import qs from 'qs';
-import AutoField from './fields/AutoField';
-import OpenAPI from '../openapi';
+import AutoField from '@/components/fields/AutoField';
+import OpenAPI from '@/openapi';
 
 function qsFilter(prefix, value) {
   if (prefix[0] === '_') {

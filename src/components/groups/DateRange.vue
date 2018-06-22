@@ -13,7 +13,7 @@
 
 <script>
 
-import BaseField from '../fields/BaseField';
+import BaseField from '@/components/fields/BaseField';
 
 export default {
   name: 'DateRange',

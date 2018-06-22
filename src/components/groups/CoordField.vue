@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import NumberField from '../fields/NumberField';
+import NumberField from '@/components/fields/NumberField';
 
 export default {
   name: 'CoordField',

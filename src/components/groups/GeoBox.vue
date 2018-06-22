@@ -19,7 +19,7 @@
 
 <script>
 
-import CoordField from './CoordField';
+import CoordField from '@/components/groups/CoordField';
 
 export default {
   name: 'GeoBox',

@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import BaseField from './BaseField';
-import FieldRow from '../FieldRow';
+import BaseField from '@/components/fields/BaseField';
+import FieldRow from '@/components/FieldRow';
 
 export default {
   name: 'SelectField',

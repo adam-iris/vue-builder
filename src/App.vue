@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import FDSNEvent from './components/builders/FDSNEvent';
-import FDSNEventSimple from './components/builders/FDSNEventSimple';
-// import ExampleForm from './components/ExampleForm';
-import GeoCSV from './components/builders/GeoCSV';
+import FDSNEvent from '@/components/builders/FDSNEvent';
+import FDSNEventSimple from '@/components/builders/FDSNEventSimple';
+// import ExampleForm from '@/components/ExampleForm';
+import GeoCSV from '@/components/builders/GeoCSV';
 
 
 export default {

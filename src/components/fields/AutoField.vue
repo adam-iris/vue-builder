@@ -1,12 +1,12 @@
 <script>
 
-import store from '../../store';
+import store from '@/store';
 
-import TextField from './TextField';
-import DateField from './DateField';
-import BooleanField from './BooleanField';
-import NumberField from './NumberField';
-import SelectField from './SelectField';
+import TextField from '@/components/fields/TextField';
+import DateField from '@/components/fields/DateField';
+import BooleanField from '@/components/fields/BooleanField';
+import NumberField from '@/components/fields/NumberField';
+import SelectField from '@/components/fields/SelectField';
 
 function getFieldDefinition(definition, name) {
   // console.log(definition);

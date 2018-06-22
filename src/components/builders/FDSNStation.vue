@@ -23,9 +23,9 @@
 <script>
 import Vue from 'vue';
 import qs from 'qs';
-import TextField from '../fields/TextField';
-import DateField from '../fields/DateField';
-import loadOpenAPIDefinition from '../openapi';
+import TextField from '@/components/fields/TextField';
+import DateField from '@/components/fields/DateField';
+import loadOpenAPIDefinition from '@/openapi';
 
 function qsFilter(prefix, value) {
   if (value === '') {

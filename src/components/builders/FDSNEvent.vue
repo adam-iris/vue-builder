@@ -56,15 +56,15 @@
 </template>
 
 <script>
-import Builder from '../Builder';
-import TextField from '../fields/TextField';
-import NumberField from '../fields/NumberField';
-import DateField from '../fields/DateField';
-import BooleanField from '../fields/BooleanField';
-import SelectField from '../fields/SelectField';
-import RadioGroup from '../groups/RadioGroup';
-import RadioOption from '../groups/RadioOption';
-import GeoBox from '../groups/GeoBox';
+import Builder from '@/components/Builder';
+import TextField from '@/components/fields/TextField';
+import NumberField from '@/components/fields/NumberField';
+import DateField from '@/components/fields/DateField';
+import BooleanField from '@/components/fields/BooleanField';
+import SelectField from '@/components/fields/SelectField';
+import RadioGroup from '@/components/groups/RadioGroup';
+import RadioOption from '@/components/groups/RadioOption';
+import GeoBox from '@/components/groups/GeoBox';
 
 export default {
   name: 'FDSNEvent',
