@@ -23,6 +23,11 @@ export default {
   inject: ['groupName'],
   mixins: [BaseField],
   components: {},
+  watch: {
+    value() {
+      this.disabled = !this.selected;
+    },
+  },
   computed: {
     queryKey() {
       return this.groupName;
@@ -32,9 +37,6 @@ export default {
     },
     selected() {
       return (this.value === this.label);
-    },
-    disabled() {
-      return !this.selected;
     },
   },
 };

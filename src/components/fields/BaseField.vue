@@ -14,30 +14,34 @@ export default {
   props: ['name', 'label', 'helpText'],
   mixins: [BuilderElement],
   components: { FieldRow },
+  data() {
+    return {
+      value: null,
+    };
+  },
+  mounted() {
+    this.readFromQuery();
+  },
+  watch: {
+    value() {
+      this.updateQuery();
+    },
+    disabled() {
+      this.updateQuery();
+    },
+  },
   computed: {
     /**
      * "Path" in the builder to this field
      */
     builderElementName() {
-      return this.queryKey;
+      return this.inputId;
     },
     /**
      * The query key mapped to this field
      */
     queryKey() {
       return this.name;
-    },
-    /**
-     * The value of the field in the query.
-     * Update the query by setting this value.
-     */
-    value: {
-      get() {
-        return this.getFromQuery(this.$store.state.query);
-      },
-      set(newValue, _oldValue) {
-        this.$store.commit('updateQuery', this.updateQuery(newValue));
-      },
     },
     /**
      * The description of this field in the definition, if available
@@ -122,19 +126,30 @@ export default {
   },
   methods: {
     /**
-     * Get the value of the field from the query
-     * This is so a subclass can read a complex value from the query
+     * Get the value of the field from the store query
      */
-    getFromQuery(query) {
+    readFromQuery() {
+      this.value = this.getValueFromQuery(this.$store.state.query);
+    },
+    /**
+     * Update the store query
+     */
+    updateQuery() {
+      this.$store.commit('updateQuery', this.createQueryValue(this.disabled ? null : this.value));
+    },
+    /**
+     * Return the value given in the query
+     */
+    getValueFromQuery(query) {
       return query[this.queryKey];
     },
     /**
      * Set "this" value in the query
      * Return a map of fields in the query that should change
      */
-    updateQuery(newValue) {
+    createQueryValue(rawValue) {
       const q = {};
-      q[this.queryKey] = newValue;
+      q[this.queryKey] = rawValue;
       return q;
     },
   },

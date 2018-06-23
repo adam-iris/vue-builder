@@ -111,7 +111,7 @@ export default {
   //   console.log("updated");
   //   this.updateChildren();
   // },
-  mounted() {
+  created() {
     OpenAPI.loadOpenAPIDefinition(this.openAPIOptions).then((definition) => {
       if (!definition) {
         throw new Error("No definition returned!");

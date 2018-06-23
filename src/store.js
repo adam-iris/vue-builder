@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import qs from 'qs';
 
 Vue.use(Vuex);
 
@@ -12,11 +13,23 @@ const FLATPICKR_CONFIG = {
   defaultHour: 0,
 };
 
+function readFromUrlHash() {
+  return qs.parse(window.location.hash.slice(1));
+}
+
+function writeToUrlHash(f) {
+  const fullUrl = [
+    window.location.href.split('#')[0],
+    qs.stringify(f),
+  ].join('#');
+  window.location.replace(fullUrl);
+}
+
 export default new Vuex.Store({
   state: {
     definition: null,
     builder: null,
-    query: {},
+    query: readFromUrlHash(),
     disabled: {},
     flatpickr_config: FLATPICKR_CONFIG,
   },
@@ -29,6 +42,7 @@ export default new Vuex.Store({
     },
     updateQuery(state, q) {
       state.query = Object.assign({}, state.query, q);
+      writeToUrlHash(state.query);
     },
     disable(state, disabled) {
       state.disabled = Object.assign({}, state.disabled, disabled);
