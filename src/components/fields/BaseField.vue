@@ -5,14 +5,14 @@
 </template>
 
 <script>
-import BuilderElement from '@/components/BuilderElement';
+import BuilderNode from '@/components/BuilderNode';
 import FieldRow from '@/components/FieldRow';
 import { toTitleCase } from '@/utils';
 
 export default {
   name: 'BaseField',
   props: ['name', 'label', 'helpText'],
-  mixins: [BuilderElement],
+  mixins: [BuilderNode],
   components: { FieldRow },
   data() {
     return {
@@ -20,14 +20,17 @@ export default {
     };
   },
   mounted() {
-    this.readFromQuery();
+    this.$nextTick(() => {
+      this.readFromQuery();
+      // this.$store.commit('addField', this);
+    });
   },
   watch: {
     value() {
-      this.updateQuery();
+      this.setFieldState();
     },
     disabled() {
-      this.updateQuery();
+      this.setFieldState();
     },
   },
   computed: {
@@ -89,10 +92,11 @@ export default {
      */
     inputAttrs() {
       return {
-        id: this.inputId,
+        id: this.uid,
         name: this.queryKey,
       };
     },
+
     /**
      * Context to provide to subcomponents.
      */
@@ -101,6 +105,17 @@ export default {
         disabled: this.disabled,
       });
     },
+
+    /**
+     * Field state as represented in the global store.
+     */
+    fieldState() {
+      return {
+        value: this.value,
+        enabled: !this.disabled,
+      };
+    },
+
     /**
      * Context from parent
      */
@@ -136,6 +151,14 @@ export default {
      */
     updateQuery() {
       this.$store.commit('updateQuery', this.createQueryValue(this.disabled ? null : this.value));
+    },
+    setFieldState() {
+      if (this.name) {
+        const update = {
+          [this.name]: this.fieldState,
+        };
+        this.$store.commit('setFieldState', update);
+      }
     },
     /**
      * Return the value given in the query

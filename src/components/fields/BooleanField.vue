@@ -1,6 +1,6 @@
 <template>
   <FieldRow :rowCtx="rowCtx">
-    <input type="checkbox" v-bind="inputAttrs" v-model="value" />
+    <input type="checkbox" v-bind="inputAttrs" v-model="value" :false-value="falseValue" />
   </FieldRow>
 </template>
 
@@ -13,6 +13,9 @@ export default {
   mixins: [BaseField],
   components: { FieldRow },
   computed: {
+    falseValue() {
+      return undefined;
+    },
     builderCtx() {
       return Object.assign({}, BaseField.builderCtx, {
         disabled2: true,

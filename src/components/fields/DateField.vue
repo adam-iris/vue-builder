@@ -1,7 +1,7 @@
 <template>
   <FieldRow :rowCtx="rowCtx">
     <FlatPickr type="text" class="form-control"
-        v-bind="inputAttrs" v-model="value" :config="flatpickr_config" />
+        v-bind="inputAttrs" v-model="value" :config="flatpickrConfig" />
   </FieldRow>
 </template>
 
@@ -16,8 +16,8 @@ export default {
   mixins: [BaseField],
   components: { FieldRow, FlatPickr },
   computed: {
-    flatpickr_config() {
-      return this.$store.state.flatpickr_config;
+    flatpickrConfig() {
+      return this.$store.state.flatpickrConfig;
     },
   },
 };

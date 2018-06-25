@@ -37,6 +37,7 @@
 <script>
 // import Vue from 'vue';
 import qs from 'qs';
+import BuilderNode from '@/components/BuilderNode';
 import AutoField from '@/components/fields/AutoField';
 import OpenAPI from '@/openapi';
 
@@ -56,11 +57,7 @@ export default {
     AutoField,
   },
   props: ['url', 'path'],
-  provide() {
-    return {
-      builderBasePath: 'builder',
-    };
-  },
+  mixins: [BuilderNode],
   computed: {
     /**
      * Options for parsing the OpenAPI definition
@@ -82,7 +79,13 @@ export default {
      * Current query
      */
     query() {
-      return this.$store.state.query;
+      const q = {};
+      Object.entries(this.$store.state.fields).forEach(([key, state]) => {
+        if (state.enabled) {
+          q[key] = state.value;
+        }
+      });
+      return q;
     },
     /**
      * List of field names
@@ -111,14 +114,16 @@ export default {
   //   console.log("updated");
   //   this.updateChildren();
   // },
-  created() {
-    OpenAPI.loadOpenAPIDefinition(this.openAPIOptions).then((definition) => {
-      if (!definition) {
-        throw new Error("No definition returned!");
-      }
-      this.$store.commit('setDefinition', definition);
-    }).catch((error) => {
-      console.error(error);
+  mounted() {
+    this.$nextTick(() => {
+      OpenAPI.loadOpenAPIDefinition(this.openAPIOptions).then((definition) => {
+        if (!definition) {
+          throw new Error("No definition returned!");
+        }
+        this.$store.commit('setDefinition', definition);
+      }).catch((error) => {
+        console.error(error);
+      });
     });
   },
   methods: {

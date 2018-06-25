@@ -30,8 +30,10 @@ export default new Vuex.Store({
     definition: null,
     builder: null,
     query: readFromUrlHash(),
+    fields: {},
     disabled: {},
-    flatpickr_config: FLATPICKR_CONFIG,
+    dependencies: {},
+    flatpickrConfig: FLATPICKR_CONFIG,
   },
   mutations: {
     setBuilder(state, b) {
@@ -46,6 +48,20 @@ export default new Vuex.Store({
     },
     disable(state, disabled) {
       state.disabled = Object.assign({}, state.disabled, disabled);
+    },
+    setFieldState(state, fieldState) {
+      state.fields = Object.assign({}, state.fields, fieldState);
+    },
+    addField(state, field) {
+      const fieldInfo = {};
+      if (field.name) {
+        fieldInfo[field.name] = field;
+      }
+      fieldInfo[field.uid] = field;
+      state.fields = Object.assign({}, state.fields, fieldInfo);
+    },
+    addDependency(state, field, dependency) {
+      state.dependencies[field] = (state.dependencies[field] || []).push(dependency);
     },
   },
 });

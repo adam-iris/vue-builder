@@ -2,7 +2,7 @@
   <div>
     <div>
       <label>
-        <input type="radio" :name="queryKey" :value="label" v-model="value" />
+        <input type="radio" :name="queryKey" :value="label" v-model="group.value" />
         {{ label }}
       </label>
     </div>
@@ -14,29 +14,23 @@
 
 <script>
 
-import slugify from 'slugify';
 import BaseField from '@/components/fields/BaseField';
 
 export default {
   name: 'RadioOption',
   props: ['label'],
-  inject: ['groupName'],
+  inject: ['group', 'groupName'],
   mixins: [BaseField],
   components: {},
-  watch: {
-    value() {
-      this.disabled = !this.selected;
-    },
-  },
   computed: {
     queryKey() {
-      return this.groupName;
-    },
-    inputId() {
-      return slugify(`${this.queryKey} ${this.label}`);
+      return this.group.queryKey;
     },
     selected() {
-      return (this.value === this.label);
+      return (this.group.value === this.label);
+    },
+    inactive() {
+      return !this.selected;
     },
   },
 };

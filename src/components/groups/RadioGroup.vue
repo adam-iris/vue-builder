@@ -13,6 +13,7 @@ export default {
   mixins: [BaseField],
   provide() {
     return {
+      group: this,
       groupName: this.queryKey,
     };
   },
